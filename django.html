@@ -1,0 +1,39 @@
+<h1>Basic working structures</h1>
+<h2>start a new project</h2>
+<p><code>django-admin.py startproject &lt;project-name&gt;</code>
+(This command must be written within your project directory)</p>
+<h2>start a project in virtual environment</h2>
+<p><code>virtualenv projectname-env
+ projectname-env/bin/activate</code></p>
+<h2>start a new app</h2>
+<p><code>python manage.py startapp &lt;app-name&gt;</code>
+(put your <app-name> in INSTALLED_APPS list within <project-name>/settings.py file)</p>
+<h2>create superuser(i.e. admin)</h2>
+<p><code>python manage.py createsuperuser</code></p>
+<h2>run server</h2>
+<p><code>python manage.py runserver</code></p>
+<h2>migrations</h2>
+<p><code>python manage.py migrate
+python manage.py makemigrations</code>
+(do everytime after updating models.py from within your <project-name> directory)</p>
+<h1>|browser| --&gt; |server| --&gt; |urls.py| --&gt; |views.py| --&gt; |templates.html|</h1>
+<p><img alt="django-workflow" src="C:\Users\Dell\Desktop\django-workflow1.png" title="workflow" /></p>
+<h2>Changing in views</h2>
+<p>go to <your-app>/views.py and make changes
+<code>def function(request):              # def blog_list(request)
+    name-to-display = name-wherer-it-lies.object.all()      # post = Post.objects.all()
+    context = {
+    'function':name-to-display          # 'blog_list': post
+    }
+    return render(request, "&lt;app-name&gt;/function.html",context)      #</code></p>
+<h2>now make a new urls.py within <your-project>/<your-app>/ directory and make changes as below</h2>
+<p>```
+from django .urls import path 
+from .views import function     # from .views import blog_list</p>
+<p>urlpatterns = [
+    path('',functions)          # path ('',blog_list)
+]</p>
+<p>```
+now make changes to $<your-project>$/urls.py and import  include and make a change to 'urlpatterns'. Then add the path to your app URLs through include. Also, when users route through 'posts/' then, it gets directed to our 'blog.urls(ie. blog/urls.py).'</p>
+<h2>templates</h2>
+<p>lets make a templates named folder to hold your 'HTML' and contains their own templating language called '<strong>Jinja2</strong>'. the folder need to name '<your-project>/<your-app>/<functions-of-views>.html' (i.e. templates/blog/blog_list.html) which is a convention</p>
